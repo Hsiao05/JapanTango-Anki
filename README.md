@@ -1,5 +1,6 @@
-# JapanTango-Anki 日语单词背诵网站 · 离线版
-A useful tool to remember Japanese vocabulary
+# 日语单词背诵网站 · 离线版
+
+这是一个纯前端静态项目，可直接用 VS Code 打开，也可双击 `index.html` 运行。推荐用 VS Code Live Server 预览。
 
 ## 文件结构
 
@@ -9,17 +10,23 @@ jp-anki-srs-offline/
 ├─ css/style.css
 ├─ js/app.js
 ├─ js/words.js
-└─ images/
-   ├─ _bg_torii.png
-   ├─ _bg_fuji.png
-   ├─ _bg_sakura.png
-   ├─ _bg_shrine.png
-   └─ _bg_fireworks.png
+├─ images/
+│  ├─ _bg_torii.png
+│  ├─ _bg_fuji.png
+│  ├─ _bg_sakura.png
+│  ├─ _bg_shrine.png
+│  └─ _bg_fireworks.png
+└─ source/
+   ├─ 二外日语（四）单词.csv
+   ├─ 全局目标驱动与动态容量算法.md
+   ├─ front.html
+   ├─ back.html
+   └─ anki-style.css
 ```
 
 ## 已实现
 
-- 目前已加入 303 条日语词库（来自第二外语四），已写入 `js/words.js`，每个单词绑定 4 位 `[0-9A-Z]` ID。
+- 303 条日语词库，已写入 `js/words.js`，每个单词绑定 4 位 `[0-9A-Z]` ID。
 - IndexedDB 本地持久化，离线可用。
 - 新用户初始化：选择「目标完成轮次」，高级参数动态估算。
 - 老用户导入：粘贴引继码恢复学习记录。
@@ -47,7 +54,7 @@ WordAdmin.nextSequentialId()
 
 ## 部署
 
-这是静态站点，没有后端，没有外部依赖。
+这是静态站点，上传整个文件夹到任意静态托管服务即可。没有后端，没有外部依赖。
 
 
 ## 本次修正版说明

@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#b91208" />
+  <title>第二外语（四）単語</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="card">
+  <canvas id="fxCanvas" aria-hidden="true"></canvas>
+
+  <div class="app-shell">
+    <header class="topbar">
+      <span id="todayPlanText" class="visually-hidden">离线 IndexedDB 持久化</span>
+      <nav class="capsule-tabs" aria-label="页面切换">
+        <button class="tab-button active" type="button" data-tab="study">背诵</button>
+        <button class="tab-button" type="button" data-tab="data">数据</button>
+        <span class="tab-slider" aria-hidden="true"></span>
+      </nav>
+    </header>
+
+    <div class="save-warning global-save-warning" role="note">
+      重要：只要退出、关闭页面、清理浏览器或换设备，就一定要提前到「数据」页生成并复制保存好引继码。
+    </div>
+
+    <main>
+      <section id="studyPage" class="page page-active">
+        <section class="study-toolbar glass-panel">
+          <div class="progress-block">
+            <div class="progress-line">
+              <span id="roundProgressText">第 1 轮 · 0 / 0</span>
+              <span id="masteryText">掌握率 0%</span>
+            </div>
+            <div class="progress-bar" aria-hidden="true"><span id="progressFill"></span></div>
+          </div>
+          <div class="toolbar-actions">
+            <button id="undoBtn" class="soft-btn" type="button" title="Backspace">撤回</button>
+            <button id="favoriteTopBtn" class="star-btn" type="button" title="快捷键 0">☆ 收藏</button>
+          </div>
+        </section>
+
+        <section class="card-stage" aria-live="polite">
+          <article id="jpCard" class="jp-card theme-other" data-side="front">
+              <section class="card-face card-front" aria-label="单词正面">
+                <main class="card-shell front-mode">
+                  <section class="title-panel">
+                    <div class="reading-placeholder"></div>
+                    <div class="word jp-word" id="frontWord">単語</div>
+                  </section>
+                  <section class="info-row compact-row">
+                    <div class="label-box">品詞</div>
+                    <div class="value-box pos-box" id="frontPos">—</div>
+                  </section>
+                  <div class="card-meta-row">
+                    <span id="frontStatusBadge" class="status-badge">未学习</span>
+                    <button class="mini-star" data-action="favorite" type="button">☆</button>
+                  </div>
+                </main>
+              </section>
+
+              <section class="card-face card-back" aria-label="单词背面">
+                <main class="card-shell back-mode">
+                  <section class="title-panel answer-title">
+                    <div class="reading jp-reading" id="backReading">よみ</div>
+                    <div class="word jp-word" id="backWord">単語</div>
+                  </section>
+                  <section class="info-row tone-pos-row">
+                    <div class="label-box" id="toneBox">声調：—</div>
+                    <div class="value-box" id="backPos">品詞：—</div>
+                  </section>
+                  <section class="meaning-card">
+                    <div class="meaning-label">意味</div>
+                    <div class="meaning-text" id="meaningText">—</div>
+                  </section>
+                  <div class="card-meta-row back-meta-row">
+                    <span id="backStatusBadge" class="status-badge">未学习</span>
+                    <button class="mini-star" data-action="favorite" type="button">☆</button>
+                  </div>
+                </main>
+              </section>
+          </article>
+          <section id="roundCompletePanel" class="round-complete-panel glass-panel" hidden>
+            <div class="complete-kicker">おめでとう</div>
+            <h2 id="completeTitle">第 1 轮完成！</h2>
+            <p id="completeText">本轮学习已经完成。先休息一下吧，也建议马上复制下面自动生成的引继码保存。</p>
+            <textarea id="completeCode" class="code-box complete-code" spellcheck="false" readonly placeholder="本轮完成后会自动生成引继码"></textarea>
+            <div class="complete-actions">
+              <button id="completeCopyBtn" class="soft-btn" type="button">复制本轮引继码</button>
+              <button id="nextRoundBtn" class="next-round-btn" type="button">次のラウンドへ</button>
+            </div>
+          </section>
+        </section>
+
+        <section class="answer-panel glass-panel" id="answerPanel">
+          <button id="showAnswerBtn" class="primary-action" type="button">答えを表示</button>
+          <div id="ratingButtons" class="rating-grid" hidden>
+            <button class="rate-btn again" type="button" data-rate="1"><span>1</span>もう一度</button>
+            <button class="rate-btn hard" type="button" data-rate="2"><span>2</span>難しい</button>
+            <button class="rate-btn good" type="button" data-rate="3"><span>3</span>良い</button>
+            <button class="rate-btn easy" type="button" data-rate="4"><span>4</span>簡単</button>
+          </div>
+          <div class="hint-line">空格显示答案 · 1-4 选择难易度 · 0 收藏 · Backspace 撤回</div>
+        </section>
+      </section>
+
+      <section id="dataPage" class="page">
+        <section class="data-grid">
+          <section class="glass-panel data-card">
+            <h2>引继码</h2>
+            <p class="muted save-copy-text">退出前请务必先生成并复制保存引继码。导出会把「背诵顺序ID + 单词ID + 学习记录 + 全局配置」加密成一串可复制文本。</p>
+            <div class="button-row">
+              <button id="exportBtn" class="primary-small" type="button">生成引继码</button>
+              <button id="copyCodeBtn" class="soft-btn" type="button">复制</button>
+            </div>
+            <textarea id="inheritCode" class="code-box" spellcheck="false" placeholder="这里会显示导出的引继码，也可以粘贴旧引继码导入"></textarea>
+            <div class="button-row">
+              <button id="importBtn" class="danger-soft" type="button">导入引继码</button>
+              <button id="resetBtn" class="danger-outline" type="button">清空本机学习数据</button>
+            </div>
+          </section>
+
+          <section class="glass-panel data-card stats-card">
+            <h2>学习统计</h2>
+            <div class="stat-list">
+              <div><strong id="statTotal">0</strong><span>总词数</span></div>
+              <div><strong id="statNew">0</strong><span>未学习</span></div>
+              <div><strong id="statLearning">0</strong><span>巩固中</span></div>
+              <div><strong id="statDone">0</strong><span>基本完成</span></div>
+              <div><strong id="statFav">0</strong><span>收藏</span></div>
+              <div><strong id="statDue">0</strong><span>本轮队列</span></div>
+            </div>
+          </section>
+        </section>
+
+        <section class="glass-panel word-list-card">
+          <div class="list-header">
+            <div>
+              <h2>单词列表</h2>
+              <p class="muted">只显示单词字段；右侧显示收藏和学习状态。</p>
+            </div>
+            <div class="list-tools">
+              <input id="wordSearch" class="search-input" type="search" placeholder="搜索单词" />
+              <select id="listOrderSelect" class="select-input" aria-label="列表顺序">
+                <option value="user">用户背诵顺序</option>
+                <option value="source">列表顺序</option>
+                <option value="reverse">倒序</option>
+                <option value="kana">假名顺序</option>
+                <option value="favorite">收藏优先</option>
+              </select>
+            </div>
+          </div>
+          <div id="wordList" class="word-list"></div>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <dialog id="setupDialog" class="setup-dialog">
+    <form method="dialog" class="setup-card">
+      <div class="setup-header">
+        <div>
+          <h1>开始学习 / 导入引继码</h1>
+          <p>新用户只需要选择「多少轮以内完成背诵」；每完成一轮后可以立即开始下一轮，不受日期限制。</p>
+          <p class="setup-save-warning">注意：本项目纯本地离线运行，只要退出/清理浏览器/换设备，就一定要提前复制保存引继码。</p>
+        </div>
+      </div>
+
+      <div class="setup-switch" role="tablist" aria-label="初始化方式">
+        <button type="button" class="setup-switch-btn active" data-setup-mode="new">新用户</button>
+        <button type="button" class="setup-switch-btn" data-setup-mode="import">老用户导入</button>
+      </div>
+
+      <section id="newSetupPanel" class="setup-panel active">
+        <label class="field-label">目标完成轮次
+          <input id="targetRoundsInput" type="number" min="1" max="9999" value="30" />
+        </label>
+        <div class="derived-box" id="setupDerivedText">正在计算建议参数…</div>
+        <details class="advanced-setup">
+          <summary>高级参数</summary>
+          <label class="field-label">每轮计划投入时间（分钟）
+            <input id="dailyMinutesInput" type="number" min="1" max="600" value="25" />
+          </label>
+          <label class="field-label">单卡平均耗时（秒/张）
+            <input id="cardSecondsInput" type="number" min="2" max="120" value="10" />
+          </label>
+          <label class="field-label">背诵顺序
+            <select id="orderModeInput">
+              <option value="source">列表顺序</option>
+              <option value="reverse">倒序</option>
+              <option value="kana">假名顺序</option>
+            </select>
+          </label>
+        </details>
+        <button id="startNewBtn" class="primary-action" type="button">開始する</button>
+      </section>
+
+      <section id="importSetupPanel" class="setup-panel">
+        <textarea id="setupImportCode" class="code-box" spellcheck="false" placeholder="粘贴引继码。退出前也请先复制保存最新引继码。"></textarea>
+        <button id="setupImportBtn" class="primary-action" type="button">復元する</button>
+      </section>
+    </form>
+  </dialog>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script src="js/words.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
