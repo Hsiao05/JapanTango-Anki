@@ -1,5 +1,5 @@
 :root {
-  --card-bg: url("../images/_bg_torii.png");
+  --card-bg: url("../images/bg_torii.png");
   --red: #b91208;
   --deep-red: #8f0f08;
   --paper: rgba(255, 255, 250, 0.86);
@@ -545,11 +545,11 @@ select:focus-visible {
   font-size: 20px;
 }
 
-.theme-noun { --red: #b91208; --card-bg: url("../images/_bg_torii.png"); }
-.theme-verb { --red: #bd2318; --card-bg: url("../images/_bg_fuji.png"); }
-.theme-adj { --red: #c95662; --card-bg: url("../images/_bg_sakura.png"); }
-.theme-adv { --red: #4479a8; --card-bg: url("../images/_bg_shrine.png"); }
-.theme-other { --red: #cf715e; --card-bg: url("../images/_bg_fireworks.png"); }
+.theme-noun { --red: #b91208; --card-bg: url("../images/bg_torii.png"); }
+.theme-verb { --red: #bd2318; --card-bg: url("../images/bg_fuji.png"); }
+.theme-adj { --red: #c95662; --card-bg: url("../images/bg_sakura.png"); }
+.theme-adv { --red: #4479a8; --card-bg: url("../images/bg_shrine.png"); }
+.theme-other { --red: #cf715e; --card-bg: url("../images/bg_fireworks.png"); }
 
 .answer-panel {
   position: sticky;
@@ -1736,11 +1736,11 @@ button,
   background: rgba(199, 139, 49, 0.12);
 }
 
-.theme-noun { --red: #b91208; --card-bg: url("../images/_bg_torii.png"); }
-.theme-verb { --red: #bd2318; --card-bg: url("../images/_bg_fuji.png"); }
-.theme-adj { --red: #c95662; --card-bg: url("../images/_bg_sakura.png"); }
-.theme-adv { --red: #4479a8; --card-bg: url("../images/_bg_shrine.png"); }
-.theme-other { --red: #cf715e; --card-bg: url("../images/_bg_fireworks.png"); }
+.theme-noun { --red: #b91208; --card-bg: url("../images/bg_torii.png"); }
+.theme-verb { --red: #bd2318; --card-bg: url("../images/bg_fuji.png"); }
+.theme-adj { --red: #c95662; --card-bg: url("../images/bg_sakura.png"); }
+.theme-adv { --red: #4479a8; --card-bg: url("../images/bg_shrine.png"); }
+.theme-other { --red: #cf715e; --card-bg: url("../images/bg_fireworks.png"); }
 
 @media (max-width: 520px) {
   .global-save-warning {
