@@ -89,8 +89,14 @@ select:focus-visible {
 #fxCanvas {
   position: fixed;
   inset: 0;
-  z-index: 8;
+  z-index: 0;
   pointer-events: none;
+  background: transparent !important;
+}
+
+.app-shell {
+  position: relative;
+  z-index: 2;
 }
 
 .app-shell {
