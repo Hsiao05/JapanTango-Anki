@@ -1113,7 +1113,7 @@
 
   const FX = (() => {
     const canvas = $('#fxCanvas');
-    const ctx = canvas.getContext('2d', { alpha: true, desynchronized: true });
+    const ctx = canvas.getContext('2d', { alpha: true })
     let width = 0;
     let height = 0;
     let dpr = 1;
