@@ -9,11 +9,11 @@ jp-anki-srs-offline/
 ├─ js/app.js
 ├─ js/words.js
 └─ images/
-   ├─ _bg_torii.png
-   ├─ _bg_fuji.png
-   ├─ _bg_sakura.png
-   ├─ _bg_shrine.png
-   └─ _bg_fireworks.png
+   ├─ bg_torii.png
+   ├─ bg_fuji.png
+   ├─ bg_sakura.png
+   ├─ bg_shrine.png
+   └─ bg_fireworks.png
 ```
 
 ## 已实现
